@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Engklek Konstitusi</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF4DF;--card:#fff;--ink:#2b2438;--mute:#6b6480;--line:#eadfc8;--soft:#fff8ea;--red:#D93A3A;--gold:#F2B01E;--green:#2E9E5B;--blue:#2F6FDE;--r:18px;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1a2b;--card:#2a2640;--ink:#f5f1ff;--mute:#b9b2d3;--line:#3d3860;--soft:#332e52}}
+:root[data-theme="dark"]{--bg:#1d1a2b;--card:#2a2640;--ink:#f5f1ff;--mute:#b9b2d3;--line:#3d3860;--soft:#332e52}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:600 15px/1.5 Nunito,ui-rounded,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+h1,h2,h3{font-family:'Baloo 2',ui-rounded,system-ui,sans-serif;margin:0;line-height:1.2}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+.app{max-width:1020px;margin:0 auto;padding:10px 12px 24px;display:grid;gap:12px}
+header,.panel{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:12px 14px}
+header{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+header h1{font-size:22px;color:var(--red)}
+.tools,.stats{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap}
+.ib{width:42px;height:42px;border-radius:12px;background:var(--soft);border:2px solid var(--line);font-size:18px}
+.ib.off{opacity:.45}
+.chip{display:inline-flex;gap:6px;align-items:center;padding:4px 10px;border-radius:99px;background:var(--soft);border:2px solid var(--line);font-weight:800;font-size:13px;white-space:nowrap}
+.chip.on{border-color:var(--gold);background:#fff1c4;color:#4a3500}
+main{display:grid;gap:12px}
+@media(min-width:880px){main{grid-template-columns:1fr 1fr;align-items:stretch}}
+.panel{display:flex;flex-direction:column;gap:12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.lg{padding:3px 10px;border-radius:99px;color:#fff;font-size:12px;font-weight:800}
+.board{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:62px;gap:8px;width:100%;max-width:340px;margin:auto;padding-bottom:30px;position:relative}
+.pt{grid-column:span 2;border-radius:14px;border:3px solid #fff;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;box-shadow:0 4px 0 rgba(0,0,0,.2);position:relative}
+.pt.s{grid-column:2/4}
+.pt b{font:800 20px 'Baloo 2',ui-rounded,system-ui,sans-serif}
+.pt small{font-size:11px;font-weight:800;text-align:center}
+.pt.l1{background:var(--blue)}.pt.l2{background:var(--green)}.pt.l3{background:var(--red)}
+.pt.now{border-color:var(--gold);animation:glow 1.2s infinite alternate}
+.pt.done::after{content:"✅";position:absolute;top:-8px;right:-6px;font-size:16px}
+@keyframes glow{to{box-shadow:0 0 0 5px rgba(242,176,30,.5),0 4px 0 rgba(0,0,0,.2)}}
+.tok{position:absolute;transform:translate(-50%,-50%);transition:left .4s,top .4s;pointer-events:none;z-index:3;font-size:30px}
+#gc{font-size:22px;z-index:2;display:none}
+.hop{animation:hop .4s}
+@keyframes hop{50%{margin-top:-26px}}
+.say{display:flex;gap:10px;align-items:flex-start;background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:10px 12px}
+.say p{margin:0}.rina{font-size:34px;line-height:1}
+.talk .rina{animation:tk .45s infinite alternate}
+@keyframes tk{to{transform:scale(1.15) rotate(-6deg)}}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.kc{aspect-ratio:3/4;border-radius:12px;border:2px dashed var(--line);background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10px;font-weight:800;text-align:center;padding:4px;color:var(--mute)}
+.kc span{font-size:26px}
+.kc.on{border:2px solid var(--gold);background:#fff1c4;color:#4a3500;cursor:pointer}
+.big{width:100%;padding:14px;border-radius:16px;background:linear-gradient(90deg,var(--red),#e8721f);color:#fff;font:800 18px 'Baloo 2',ui-rounded,system-ui,sans-serif;box-shadow:0 4px 0 #8f2323}
+.big:disabled{opacity:.5}
+.lnk{background:none;text-decoration:underline;color:var(--mute);padding:8px}
+.sheet{position:fixed;inset:0;z-index:20;background:rgba(20,15,40,.65);display:none;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top,0px)) 12px 100px}
+.sheet.on{display:flex}
+.sc{background:var(--card);border:3px solid var(--gold);border-radius:22px;width:100%;max-width:560px;max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px);display:flex;flex-direction:column;overflow:hidden}
+.hd{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:2px solid var(--line);flex:none}
+.bd{padding:14px;overflow-y:auto;flex:1;display:grid;gap:12px;align-content:start}
+.ft{display:flex;gap:8px;padding:10px 14px;border-top:2px solid var(--line);flex:none}
+.ft .big{font-size:16px;padding:11px;flex:1;width:auto}
+.sm{padding:10px 14px;border-radius:14px;background:var(--soft);border:2px solid var(--line);font-weight:800}
+.op{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:11px 12px;border-radius:14px;background:var(--card);border:2px solid var(--line);margin-bottom:8px}
+.op b{flex:none;width:26px;height:26px;border-radius:8px;background:var(--soft);display:grid;place-items:center}
+.op.ok,.mb.ok{background:#d9f5e3;border-color:var(--green);color:#0d4a27}
+.op.bad,.mb.bad{background:#fde0e0;border-color:var(--red);color:#6b1414;animation:shk .3s}
+.op:disabled:not(.ok):not(.bad){opacity:.5}
+@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mt>div{display:grid;gap:8px;align-content:start}
+.mb{padding:10px;border-radius:12px;background:var(--card);border:2px solid var(--line);font-size:13px;min-height:54px}
+.mb.sel{border-color:var(--blue);background:#e3edff;color:#14307a}
+.mb.ok{pointer-events:none}
+.fb{padding:12px;border-radius:14px;border:2px solid;font-size:14px}
+.fb.ok{background:#d9f5e3;border-color:var(--green);color:#0d4a27}
+.fb.bad{background:#fff1c4;border-color:var(--gold);color:#4a3500}
+.fb.no{background:#fde0e0;border-color:var(--red);color:#6b1414}
+.seg{display:flex;gap:8px}.seg button{flex:1;padding:10px;border-radius:14px;background:var(--soft);border:2px solid var(--line);font-weight:800}
+.seg .on{border-color:var(--gold);background:#fff1c4;color:#4a3500}
+.mid{text-align:center}.mid .lo{font-size:54px;line-height:1}
+.rf{display:grid;gap:6px}.rf .seg button{padding:6px}
+textarea{width:100%;min-height:70px;border-radius:12px;border:2px solid var(--line);background:var(--soft);color:var(--ink);padding:10px;font:inherit}
+.res{border:2px solid var(--line);border-radius:14px;padding:12px;background:var(--soft)}
+.res h3{color:var(--red)}
+.fx{position:fixed;top:-30px;z-index:40;pointer-events:none;font-size:24px;animation:fall 2s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.rd{box-shadow:0 0 0 4px var(--gold),0 0 18px rgba(242,176,30,.8)!important;border-radius:12px;transition:box-shadow .2s}
+.mtr{position:relative;height:34px;border-radius:99px;overflow:hidden;display:flex;border:2px solid var(--line)}
+.mtr i{display:block;height:100%}
+.mk{position:absolute;top:0;height:100%;width:8px;background:#2b2438;border:2px solid #fff;border-radius:4px;transform:translateX(-50%)}
+@media(max-width:420px){header h1{font-size:19px}.ib{width:38px;height:38px}}
+@media print{body{background:#fff}.app,.fx{display:none}.sheet{position:static;background:none;display:block}.ft{display:none}.sc{max-height:none;border:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <h1>🇮🇩 Engklek Konstitusi</h1>
+ <div class="stats" id="stats"></div>
+ <div class="tools">
+  <button class="ib" id="bm" title="Musik dan efek suara">🎵</button>
+  <button class="ib" id="bv" title="Narator Bu Rina">🗣️</button>
+  <button class="ib" id="bh" title="Petunjuk">❓</button>
+  <button class="ib" id="br" title="Mulai ulang">🔄</button>
+ </div>
+</header>
+<main>
+ <section class="panel">
+  <div class="legend"><span class="lg" style="background:var(--blue)">Level 1 · Memahami</span><span class="lg" style="background:var(--green)">Level 2 · Mengaplikasi</span><span class="lg" style="background:var(--red)">Level 3 · Merefleksi</span></div>
+  <div class="board" id="bo"><span class="tok" id="gc">🪨</span><span class="tok" id="av">👦</span></div>
+ </section>
+ <section class="panel">
+  <h2 id="ti">Petak 1</h2>
+  <div class="say"><span class="rina">👩‍🏫</span><p id="tip"></p></div>
+  <div><h3 style="font-size:16px;margin-bottom:8px">Kartu Warga Cilik <span id="cn" style="color:var(--mute)">0/8</span></h3><div class="cards" id="cd"></div></div>
+  <button class="big" id="thr" style="margin-top:auto">🎯 Lempar Gaco!</button>
+ </section>
+</main>
+</div>
+<div class="sheet" id="sh"><div class="sc">
+ <div class="hd" id="hd"><b id="h1"></b><span id="h2" class="chip"></span></div>
+ <div class="bd" id="bd"></div>
+ <div class="ft" id="ft"></div>
+</div></div>
+<script>
+const $=id=>document.getElementById(id);
+const LV=['','Level 1 · Memahami','Level 2 · Mengaplikasi','Level 3 · Merefleksi'];
+const D=[null,
+{n:'Gerbang Aturan',i:'🚪',l:1,t:'q',s:'Pagi di gerbang sekolah, Dimas bertanya, “Bu Rina, mengapa semua orang harus menaati aturan?” Bu Rina tersenyum, “Karena aturan membuat hidup bersama jadi tertib dan aman.”',q:'Apa yang dimaksud norma?',o:['Aturan atau kebiasaan yang menjadi pedoman berperilaku sehari-hari','Hadiah untuk anak yang rajin','Kebebasan berbuat sesuka hati','Daftar keinginan pribadi'],h:'Norma menjadi pedoman. Pedoman untuk apa, ya? Coba ingat aturan di rumah dan sekolah.',e:'Norma adalah aturan atau kebiasaan yang menjadi pedoman berperilaku. Dengan norma, hidup di rumah dan sekolah lebih teratur.',c:['📕','Kartu Aturan','Norma adalah pedoman berperilaku sehari-hari.']},
+{n:'Empat Norma',i:'🧭',l:1,t:'m',s:'Sekar melihat banyak perbuatan baik di sekolah. Di Indonesia ada empat jenis norma. Bantu Sekar mencocokkannya!',q:'Cocokkan norma dengan contohnya',p:[['Norma agama','Beribadah sesuai agamanya'],['Norma kesusilaan','Berkata jujur sesuai hati nurani'],['Norma kesopanan','Menyapa guru dengan santun'],['Norma hukum','Menyeberang lewat zebra cross']],h:'Ingat sumbernya: agama dari kitab suci, kesusilaan dari hati nurani, kesopanan dari kebiasaan masyarakat, hukum dari peraturan negara.',e:'Empat norma: agama (kitab suci), kesusilaan (hati nurani), kesopanan (kebiasaan masyarakat), dan hukum (peraturan negara dengan sanksi tegas).',c:['🧭','Kartu Empat Norma','Ada norma agama, kesusilaan, kesopanan, dan hukum.']},
+{n:'Hak & Kewajiban',i:'⚖️',l:1,t:'q',s:'Sekar berhak mendapat kasih sayang dari orang tuanya. Karena itu, Sekar juga ingin menyayangi dan menghormati mereka.',q:'Apa beda hak dan kewajiban?',o:['Hak boleh kita terima atau lakukan, kewajiban harus kita laksanakan','Hak harus dikerjakan, kewajiban boleh ditinggalkan','Hak dan kewajiban tidak ada hubungannya','Kewajiban hanya milik orang dewasa'],h:'Satu hal kita terima, satu lagi kita kerjakan. Mana yang cocok?',e:'Hak adalah kewenangan untuk mendapatkan, memiliki, atau melakukan sesuatu. Kewajiban adalah hal yang harus dilaksanakan. Keduanya saling berkaitan.',c:['⚖️','Kartu Hak & Kewajiban','Hak diterima, kewajiban dilaksanakan.']},
+{n:'Pasangan Setia',i:'👟',l:2,t:'m',s:'Bu Rina menempel kartu di papan. “Hak dan kewajiban seperti sepasang sepatu, tidak bisa dipisah,” katanya.',q:'Pasangkan hak dengan kewajibannya',p:[['Berhak mendapat pendidikan','Wajib rajin belajar dan menaati tata tertib'],['Berhak merasa aman di sekolah','Wajib tidak menyakiti teman'],['Berhak berpendapat di kelas','Wajib menghargai pendapat teman'],['Berhak disayangi orang tua','Wajib menyayangi dan menghormati orang tua']],h:'Tanyakan pada dirimu: kalau aku punya hak ini, apa yang harus kulakukan untuk orang lain?',e:'Hak dan kewajiban berjalan berpasangan. Saat kita menikmati hak, kita juga menjalankan kewajiban.',c:['👟','Kartu Pasangan','Hak dan kewajiban seperti sepasang sepatu.']},
+{n:'Rumah Konstitusi',i:'📜',l:2,t:'q',s:'Dimas menemukan buku kecil bertuliskan UUD NRI Tahun 1945. Bu Rina berkata, “Inilah konstitusi kita, aturan dasar negara yang tertulis.”',q:'Aturan dasar negara Indonesia yang tertulis disebut ...',o:['UUD NRI Tahun 1945 (konstitusi)','Tata tertib kelas','Jadwal piket','Peraturan kantin'],h:'Cari aturan yang berlaku untuk seluruh negara, bukan hanya satu kelas.',e:'UUD NRI Tahun 1945 adalah konstitusi Indonesia. Pembukaannya memuat tujuan negara dan Pancasila. Pasal 31 ayat (1) menyebut setiap warga negara berhak mendapat pendidikan.',c:['📜','Kartu Konstitusi','UUD NRI 1945 adalah aturan dasar negara.']},
+{n:'Kerja Bakti',i:'🤝',l:2,t:'q',s:'Minggu pagi, warga RT kerja bakti membersihkan selokan. Dimas ingin bermain, tetapi ayahnya sudah membawa cangkul.',q:'Apa tindakan terbaik Dimas?',o:['Ikut membantu sesuai kemampuannya','Tetap bermain saja','Menonton dari jauh','Pura-pura sakit'],h:'Lingkungan bersih adalah hak semua warga. Siapa yang wajib menjaganya?',e:'Setiap orang berhak atas lingkungan yang baik dan sehat (UUD NRI 1945 Pasal 28H ayat 1), dan semua warga wajib ikut menjaganya bersama-sama.',c:['🤝','Kartu Gotong Royong','Hak lingkungan bersih, kewajiban menjaganya bersama.']},
+{n:'Musyawarah',i:'🗣️',l:3,t:'q',s:'Kelas V bermusyawarah menentukan jadwal piket. Hasilnya, Sekar mendapat giliran hari Senin, padahal ia ingin hari Jumat.',q:'Bagaimana sikap Sekar yang tepat?',o:['Menerima kesepakatan dan melaksanakan piket dengan tanggung jawab','Marah dan tidak mau piket','Pura-pura setuju, tetapi tidak piket','Mengejek teman yang menyusun jadwal'],h:'Musyawarah menghasilkan keputusan bersama. Bagaimana sebaiknya kita memperlakukan keputusan bersama?',e:'Musyawarah adalah cara mendapat keputusan yang adil lewat kesepakatan bersama. Hasilnya wajib dihormati dan dilaksanakan.',c:['🗣️','Kartu Musyawarah','Keputusan bersama dihormati dan dilaksanakan.']},
+{n:'Warga Teladan',i:'🌟',l:3,t:'q',s:'Hari terakhir lomba kelas bersih. Dimas melihat seorang teman mencoret meja saat tidak ada guru. Semua menunggu apa yang akan Dimas lakukan.',q:'Apa langkah terbaik Dimas?',o:['Mengingatkan dengan sopan dan mengajak membersihkannya bersama','Ikut mencoret meja','Pura-pura tidak melihat','Menertawakan temannya'],h:'Kita berhak atas kelas yang bersih. Apa kewajiban kita terhadap fasilitas sekolah dan teman?',e:'Hak mendapat kelas bersih berjalan bersama kewajiban menjaga fasilitas dan menghormati hak orang lain (UUD NRI 1945 Pasal 28J ayat 1).',c:['🌟','Kartu Warga Teladan','Hak dan kewajiban berjalan beriringan.']}
+];
+const REF=['Aku bisa menjelaskan arti norma, hak, dan kewajiban.','Aku bisa memberi contoh hak dan kewajiban di sekolah dan rumah.','Aku mau melaksanakan kewajibanku dengan tanggung jawab.'];
+const S={mus:true,voc:true,n:1,P:[],cur:0,step:1,at:0,cards:[],tries:0,mist:0,c:null,fail:false,ref:[0,0,0],note:''};
+/* ===== Audio: musik, efek, narator ===== */
+let AC,MG,SG,tmr,st=0;
+function ac(){if(!AC){AC=new(window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();MG.gain.value=.07;MG.connect(AC.destination);SG=AC.createGain();SG.gain.value=.3;SG.connect(AC.destination)}if(AC.state==='suspended')AC.resume();return AC}
+function tone(f,t,d,ty,g,o){const x=AC.createOscillator(),v=AC.createGain();x.type=ty;x.frequency.value=f;v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.001,t+d);x.connect(v);v.connect(o);x.start(t);x.stop(t+d+.05)}
+const hz=s=>261.63*Math.pow(2,s/12);
+const ME=[[16,14,12,14,16,19,16,null],[12,14,16,14,12,9,12,null],[9,12,14,17,14,12,9,null],[14,16,19,16,14,11,14,null]],BA=[-12,-15,-19,-17];
+function tick(){const t=AC.currentTime+.04,b=st>>3,k=st&7,m=ME[b][k];if(m!==null)tone(hz(m),t,.3,'triangle',.9,MG);if(k===0||k===4)tone(hz(BA[b]),t,.5,'sine',1,MG);st=(st+1)%32}
+function music(){clearInterval(tmr);if(S.mus&&AC)tmr=setInterval(tick,250)}
+const SF={ok:[[523,0],[659,.09],[784,.18],[1046,.27]],bad:[[196,0],[147,.15]],jump:[[392,0],[587,.08]],win:[[523,0],[659,.12],[784,.24],[1046,.36],[784,.52],[1046,.64]]};
+function sfx(k){if(!S.mus||!AC)return;const t=AC.currentTime;SF[k].forEach(a=>tone(a[0],t+a[1],.22,k==='bad'?'sawtooth':'triangle',.8,SG))}
+function duck(on){document.body.classList.toggle('talk',on);if(AC)MG.gain.setTargetAtTime(on?.025:.07,AC.currentTime,.1)}
+let Q=0,HL=null;
+const sp=t=>t.replace(/<[^>]+>/g,' ').replace(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF\uFE0F\u200D]/gu,'').replace(/UUD NRI/g,'Undang-Undang Dasar Negara Republik Indonesia').replace(/Kelas V\b/g,'Kelas lima').replace(/\bRT\b/g,'Er Te').replace(/&/g,' dan ').replace(/≥/g,'minimal ').replace(/\+(\d)/g,'tambah $1').replace(/%/g,' persen').replace(/·/g,',').replace(/\s+/g,' ').trim();
+function unhi(){if(HL)HL.classList.remove('rd');HL=null}
+function stopv(){Q++;unhi();duck(false);try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}}
+function seq(items){stopv();if(!S.voc||!window.speechSynthesis)return;const id=Q,v=speechSynthesis.getVoices().find(x=>/^id/i.test(x.lang));let i=0;
+ const nx=()=>{if(id!==Q)return;unhi();if(i>=items.length){duck(false);return}const it=items[i++],t=sp(it.t||'');if(it.el&&it.el.isConnected){HL=it.el;HL.classList.add('rd');HL.scrollIntoView({block:'center',behavior:'smooth'})}
+  if(!t){setTimeout(nx,600);return}
+  const u=new SpeechSynthesisUtterance(t);u.lang='id-ID';if(v)u.voice=v;u.rate=.85;u.pitch=1.3;u.onstart=()=>duck(true);u.onend=u.onerror=()=>{if(id===Q)setTimeout(nx,300)};try{speechSynthesis.speak(u)}catch(e){duck(false)}};
+ nx()}
+const say=(t,el)=>seq([{t,el}]);
+function readBd(){seq([...$('bd').children].filter(e=>!e.classList.contains('seg')).map(e=>({el:e,t:e.textContent})))}
+function readQ(){const d=S.c;if(!d||!d.t||d.t==='aim')return;const b=$('bd'),it=[],tr=$('tr');if(tr)it.push({el:tr,t:tr.textContent});
+ it.push({el:b.querySelector('.say'),t:'Dengarkan ceritanya ya. '+d.s},{el:b.querySelector('h3'),t:'Pertanyaannya. '+d.q});
+ if(d.t==='q'){b.querySelectorAll('.op').forEach((e,j)=>it.push({el:e,t:'Pilihan '+'ABCD'[j]+'. '+e.querySelector('span').textContent}));it.push({t:'Ayo, pilih jawabanmu!'})}
+ else{it.push({el:b.querySelector('p.sm'),t:'Caranya, ketuk satu kotak di sebelah kiri, lalu ketuk pasangannya di sebelah kanan.'});b.querySelectorAll('.mb').forEach(e=>it.push({el:e,t:(e.dataset.l!==undefined?'Kiri. ':'Kanan. ')+e.textContent}));it.push({t:'Ayo, cocokkan pasangannya!'})}
+ const f=$('fb');if(f&&!f.hidden)it.push({el:f,t:f.textContent});seq(it)}
+function turn(pre){seq((pre?[{t:pre}]:[]).concat([{el:$('tip'),t:$('tip').textContent},{el:$('thr'),t:'Tekan tombol Lempar Gaco, ya!'}]))}
+function boom(){['🎉','⭐','✨','🎊'].forEach(e=>{for(let i=0;i<6;i++){const s=document.createElement('span');s.className='fx';s.textContent=e;s.style.left=Math.random()*95+'%';s.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),2800)}})}
+/* ===== Papan ===== */
+const ORD=[7,8,6,4,5,3,2,1],SING=[6,3,2,1];
+function build(){const bo=$('bo');bo.querySelectorAll('.pt').forEach(e=>e.remove());ORD.forEach(n=>{const d=document.createElement('div');d.id='pt'+n;d.className='pt l'+D[n].l+(SING.includes(n)?' s':'');d.innerHTML=`<b>${n}</b><small>${D[n].i} ${D[n].n}</small>`;bo.appendChild(d)})}
+function put(el,n){const e=$('pt'+n);el.style.left=e.offsetLeft+e.offsetWidth/2+'px';el.style.top=e.offsetTop+e.offsetHeight/2+'px'}
+function stand(n){const e=$('pt'+n),a=$('av');a.style.left=e.offsetLeft+e.offsetWidth-10+'px';a.style.top=e.offsetTop+e.offsetHeight-6+'px'}
+function home(){const e=$('pt1'),a=$('av');a.style.left=e.offsetLeft+e.offsetWidth/2+'px';a.style.top=e.offsetTop+e.offsetHeight+18+'px'}
+function stats(){$('stats').innerHTML=S.P.map((p,i)=>`<span class="chip ${i===S.cur&&S.P.length>1?'on':''}">${p.av} ${p.sc}⭐ ${'🪨'.repeat(p.g)||'—'}</span>`).join('')}
+function ui(){const n=S.step,d=D[n];$('ti').textContent=`Petak ${n}: ${d.n}`;$('tip').textContent=`Giliran ${S.P[S.cur].n}! ${LV[d.l]}. Ayo lempar gaco ke petak ${n}.`;for(let i=1;i<=8;i++){$('pt'+i).classList.toggle('now',i===n);$('pt'+i).classList.toggle('done',S.cards.includes(i))}
+ $('cd').innerHTML=D.slice(1).map((x,i)=>S.cards.includes(i+1)?`<div class="kc on" data-k="${i+1}"><span>${x.c[0]}</span>${x.c[1]}</div>`:`<div class="kc"><span>❔</span>Petak ${i+1}</div>`).join('');$('cn').textContent=S.cards.length+'/8';$('av').textContent=S.P[S.cur].av;S.at=n-1;n>1?stand(n-1):home();stats()}
+$('cd').onclick=e=>{const k=e.target.closest('[data-k]');if(k){const c=D[+k.dataset.k].c;$('tip').textContent=c[1]+': '+c[2];say(c[2])}};
+/* ===== Lembar tantangan ===== */
+function sheet(h,chip,body,ft){stopv();$('hd').style.display=h||chip?'':'none';$('h1').textContent=h;$('h2').textContent=chip;$('h2').style.display=chip?'':'none';$('bd').innerHTML=body;$('ft').innerHTML=ft||'';$('bd').scrollTop=0;$('sh').classList.add('on')}
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+$('thr').onclick=()=>{ac();$('thr').disabled=true;aim()};
+let RAF=0;
+function aim(){const n=S.step,p=S.P[S.cur];
+ sheet('Lempar Gaco 🎯','Petak '+n,`<div class="say"><span class="rina">👩‍🏫</span><p>Tekan <b>Lempar!</b> saat penanda berada di area hijau. Hijau berarti tepat, kuning kena garis, merah meleset.</p></div><div class="mtr" id="mt"><i style="width:20%;background:#e5484d"></i><i style="width:16%;background:#f2b01e"></i><i style="width:28%;background:#2e9e5b"></i><i style="width:16%;background:#f2b01e"></i><i style="width:20%;background:#e5484d"></i><span class="mk" id="mk"></span></div>`,`<button class="sm" id="hearx">🔊</button><button class="big" id="tw">🎯 Lempar!</button>`);
+ S.c={t:'aim'};cancelAnimationFrame(RAF);const t0=performance.now();let x=0;
+ const f=t=>{const m=$('mk');if(!m)return;const q=((t-t0)/1300)%2;x=q<1?q:2-q;m.style.left=x*100+'%';RAF=requestAnimationFrame(f)};RAF=requestAnimationFrame(f);
+ $('tw').onclick=()=>{cancelAnimationFrame(RAF);const d=Math.abs(x-.5);$('sh').classList.remove('on');toss(n,d<.14?2:d<.3?1:0)};
+ seq([{el:$('bd').querySelector('.say'),t:`Giliran ${p.n}! Tekan tombol Lempar saat penanda ada di area hijau. Hijau artinya tepat, kuning artinya kena garis, dan merah artinya meleset.`},{el:$('mt'),t:'Lihat penanda yang bergerak ini, ya!'},{el:$('tw'),t:'Sekarang, tekan tombol Lempar!'}])}
+function toss(n,k){const p=S.P[S.cur],g=$('gc'),e=$('pt'+n);S.c=null;g.style.display='block';put(g,n);
+ g.style.left=parseFloat(g.style.left)+(k===1?e.offsetWidth/2-4:0)+'px';g.style.top=parseFloat(g.style.top)-(k===0?e.offsetHeight/2+20:0)+'px';
+ let m;if(k===2){p.sc+=5;p.tp++;m='Lemparan tepat! Bonus tambah 5 poin.';sfx('ok')}else if(k===1){m='Gaco kena garis. Tidak ada bonus, tapi kamu tetap boleh lanjut.';sfx('jump')}else{const l=p.g>1;if(l)p.g--;m='Gaco meleset keluar petak!'+(l?' Gaco kamu berkurang satu.':' Untung gaco terakhirmu aman.');sfx('bad')}
+ S.tr={m,c:k===2?'ok':k===1?'bad':'no'};stats();
+ setTimeout(()=>{g.style.display='none';stand(n);S.at=n;$('av').classList.remove('hop');void $('av').offsetWidth;$('av').classList.add('hop');sfx('jump')},700);setTimeout(()=>openQ(n),1400)}
+function fbBox(cls,t){const f=$('fb');f.className='fb '+cls;f.hidden=false;f.innerHTML=t;f.scrollIntoView({block:'nearest',behavior:'smooth'})}
+function openQ(n){const d=D[n];S.c=d;S.tries=0;S.mist=0;S.fail=false;S.sel=null;S.done=0;const sc=(S.tr?`<div class="fb ${S.tr.c}" id="tr">${S.tr.m}</div>`:'')+`<div class="say"><span class="rina">👩‍🏫</span><p>${d.s}</p></div><h3>${d.q}</h3>`;let body;
+ if(d.t==='q'){S.ord=shuf(d.o.map((x,i)=>i));body=sc+`<div>${S.ord.map((k,j)=>`<button class="op" data-k="${k}"><b>${'ABCD'[j]}</b><span>${d.o[k]}</span></button>`).join('')}</div><div id="fb" class="fb" hidden></div>`}
+ else{S.R=shuf(d.p.map((x,i)=>i));body=sc+`<p class="sm" style="margin:0;font-size:13px">Ketuk satu kotak di kiri, lalu pasangannya di kanan.</p><div class="mt"><div>${d.p.map((x,i)=>`<button class="mb" data-l="${i}">${x[0]}</button>`).join('')}</div><div>${S.R.map(i=>`<button class="mb" data-r="${i}">${d.p[i][1]}</button>`).join('')}</div></div><div id="fb" class="fb" hidden></div>`}
+ S.read=`${d.s} ${d.q}`;sheet(`Petak ${n}: ${d.n}`,LV[d.l],body,`<button class="sm" id="hear">🔊 Dengar</button><button class="big" id="go" hidden>Lanjutkan ➜</button>`);
+readQ()}
+function award(p,pts){p.sc+=pts;p.ok++;if(!S.cards.includes(S.step))S.cards.push(S.step);sfx('ok');boom();stats()}
+function finish(ok,msg){$('go').hidden=false;say(msg,$('fb'))}
+$('bd').onclick=e=>{const p=S.P[S.cur],d=S.c;if(!d)return;
+ const o=e.target.closest('.op');
+ if(o&&!o.disabled){const k=+o.dataset.k;if(k===0){o.classList.add('ok');document.querySelectorAll('.op').forEach(x=>x.disabled=true);p.ans++;award(p,S.tries?5:10);fbBox('ok',`🎉 Jawaban tepat! (+${S.tries?5:10} poin)<br>${d.e}`);finish(1,'Yeee, jawabanmu benar! Hebat! '+d.e)}
+  else{o.classList.add('bad');o.disabled=true;S.tries++;p.g=Math.max(0,p.g-1);stats();sfx('bad');
+   if(S.tries>=2||p.g===0){p.ans++;S.fail=p.g===0;document.querySelectorAll('.op').forEach(x=>{x.disabled=true;if(+x.dataset.k===0)x.classList.add('ok')});fbBox('no',`💡 Belum tepat. Jawaban yang benar sudah ditandai hijau.<br>${d.e}${p.g===0?'<br><b>Gaco habis! Kita ulangi petak ini dengan 3 gaco baru.</b>':''}`);finish(0,'Tidak apa-apa, ayo belajar lagi. '+d.e)}
+   else{fbBox('bad',`🪨 Gaco berkurang satu. Petunjuk Bu Rina: ${d.h}<br>Coba sekali lagi!`);say('Ups, belum tepat. Gaco kamu berkurang satu. Petunjuk dari Bu Rina. '+d.h+' Ayo coba lagi!',$('fb'))}}return}
+ const l=e.target.closest('[data-l]'),r=e.target.closest('[data-r]');
+ if(l&&!l.classList.contains('ok')){document.querySelectorAll('[data-l]').forEach(x=>x.classList.remove('sel'));l.classList.add('sel');S.sel=+l.dataset.l;return}
+ if(r&&S.sel!==null&&!r.classList.contains('ok')){const L=document.querySelector(`[data-l="${S.sel}"]`);
+  if(+r.dataset.r===S.sel){L.classList.remove('sel');L.classList.add('ok');r.classList.add('ok');S.sel=null;S.done++;sfx('jump');
+   if(S.done===d.p.length){p.ans++;const pts=S.mist?5:10;award(p,pts);fbBox('ok',`🎉 Semua pasangan benar! (+${pts} poin)<br>${d.e}`);finish(1,'Semua pasangan benar! '+d.e)}}
+  else{r.classList.add('bad');setTimeout(()=>r.classList.remove('bad'),400);S.mist++;sfx('bad');if(S.mist%2===0){p.g=Math.max(0,p.g-1);stats()}fbBox('bad',`Belum cocok. Petunjuk Bu Rina: ${d.h}`);if(S.mist===1)say('Ups, belum cocok. '+d.h+' Ayo coba lagi!',$('fb'))}}};
+$('sh').addEventListener('click',e=>{if(e.target.id==='hear'){const d=S.c;if(d)readQ();return}if(e.target.id==='hearx'){readBd();return}if(e.target.id!=='go')return;const p=S.P[S.cur];$('sh').classList.remove('on');S.c=null;
+ if(p.g<=0){p.g=3}
+ stopv();
+ if(S.fail){stats();ui();$('thr').disabled=false;$('tip').textContent='Gaco baru! Ayo ulangi petak '+S.step+'.';turn();return}
+ if(S.P.length>1&&S.cur===0){S.cur=1;$('thr').disabled=false;ui();turn();return}
+ S.cur=0;if(S.step===8){reflect();return}
+ S.step++;$('thr').disabled=false;ui();turn()});
+/* ===== Refleksi & hasil ===== */
+function reflect(){const em=['😊 Paham','😐 Hampir','🙁 Belum'];sheet('Refleksi Akhir','Level 3',`<div class="say"><span class="rina">👩‍🏫</span><p>Hebat, kamu sampai petak terakhir! Sekarang renungkan apa yang sudah kamu pelajari.</p></div>`+REF.map((t,i)=>`<div class="rf"><span>${t}</span><div class="seg" data-i="${i}">${em.map((x,j)=>`<button data-j="${j}" class="${j===S.ref[i]?'on':''}">${x}</button>`).join('')}</div></div>`).join('')+`<div class="rf"><span>Satu kewajiban yang akan kulakukan besok:</span><textarea id="nt" placeholder="Contoh: aku akan piket kelas tepat waktu"></textarea></div>`,`<button class="big" id="rs">Lihat Hasil ➜</button>`);
+ $('bd').querySelectorAll('.seg').forEach(g=>g.onclick=e=>{const b=e.target.closest('button');if(!b)return;S.ref[+g.dataset.i]=+b.dataset.j;g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
+ $('rs').onclick=()=>{S.note=$('nt').value;result()};seq([{el:$('bd').querySelector('.say'),t:'Hebat! Kamu sudah sampai petak terakhir. Sekarang kita renungkan apa yang sudah kamu pelajari, ya.'}].concat([...$('bd').querySelectorAll('.rf')].map((e,i)=>({el:e,t:i<3?'Pernyataan '+(i+1)+'. '+e.querySelector('span').textContent+' Pilih paham, hampir, atau belum.':e.querySelector('span').textContent+' Tulis di kotak, ya.'}))))}
+function result(){sfx('win');boom();const all=S.cards.length===8;const T=S.P.map(p=>p.sc+p.g*5+(all?10:0)),win=S.P.length>1?`<div class="res"><h3>${T[0]===T[1]?'Seri! Kalian sama-sama hebat 🤝':'Pemenang: '+S.P[T[0]>T[1]?0:1].n+' 🎉'}</h3></div>`:'';const rows=S.P.map((p,ix)=>{const tot=T[ix],pr=tot>=115?'Juara Engklek 🏆':tot>=75?'Pelompat Hebat 🥇':'Ayo Coba Lagi 💪',ac=p.ans?Math.round(p.ok/p.ans*100):0;return `<div class="res"><h3>${p.av} ${p.n}</h3><p style="margin:4px 0">Skor akhir: <b>${tot}</b> (poin permainan ${p.sc} + sisa gaco ${p.g*5}${all?' + kartu lengkap 10':''})<br>Lemparan tepat: <b>${p.tp}</b> dari 8<br>Ketepatan jawaban: <b>${ac}%</b><br>Predikat: <b>${pr}</b></p></div>`}).join('');
+ const em=['😊','😐','🙁'];sheet('Hasil Belajar','',`<div class="mid"><div class="lo">🏆</div><h2>Selamat, Warga Cilik!</h2></div>${win}${rows}<div class="res">Kartu terkumpul: <b>${S.cards.length}/8</b><br>Refleksi diri: ${S.ref.map(j=>em[j]).join(' ')}<br>Kewajibanku besok: <b id="nn"></b></div>`,`<button class="sm" id="pr">🖨️ Cetak</button><button class="big" id="ag">🔄 Main Lagi</button>`);
+ $('nn').textContent=S.note||'—';$('pr').onclick=()=>window.print();$('ag').onclick=()=>{$('sh').classList.remove('on');intro()};seq([{el:$('bd').querySelector('.mid'),t:'Selamat, warga cilik! Kamu sudah menyelesaikan semua petak.'}].concat([...$('bd').querySelectorAll('.res')].map(e=>({el:e,t:e.textContent}))).concat([{t:'Teruslah menjalankan hak dan kewajibanmu dengan penuh tanggung jawab, ya!'}]))}
+/* ===== Layar awal & petunjuk ===== */
+function intro(){S.c=null;S.keep=null;S.P=[];if(window.speechSynthesis)speechSynthesis.cancel();sheet('','',`<div class="mid"><div class="lo">🇮🇩</div><h2 style="font-size:28px;color:var(--red)">Engklek Konstitusi</h2><p>Lompat dari petak ke petak, kumpulkan 8 Kartu Warga Cilik, dan jadilah warga yang tahu hak, kewajiban, serta bertanggung jawab!</p></div><div class="seg" id="md"><button data-m="1" class="on">👦 Main sendiri</button><button data-m="2">👦👧 Berdua</button></div>`,`<button class="sm" id="hearx">🔊</button><button class="big" id="st">Mulai Bermain ▶</button>`);
+ $('md').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.n=+b.dataset.m;$('md').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))};
+ $('st').onclick=()=>{ac();music();S.P=[{n:'Dimas',av:'👦',sc:0,g:3,ok:0,ans:0,tp:0}];if(S.n===2)S.P.push({n:'Sekar',av:'👧',sc:0,g:3,ok:0,ans:0,tp:0});S.cur=0;S.step=1;S.at=0;S.cards=[];S.ref=[0,0,0];S.note='';$('sh').classList.remove('on');$('thr').disabled=false;build();home();ui();turn('Halo, teman-teman! Aku Bu Rina. Ayo bermain engklek konstitusi. Lempar gaco, lompat ke petak, dan selesaikan misi warga negara!')}}
+function help(tab){if(S.c&&!S.keep)S.keep=[$('h1').textContent,$('h2').textContent,$('bd').innerHTML,$('ft').innerHTML];const sw=`<div class="seg" id="tb"><button data-t="s" class="${tab==='s'?'on':''}">🧒 Siswa</button><button data-t="g" class="${tab==='g'?'on':''}">👩‍🏫 Guru</button></div>`;
+ const A=tab==='s'?`<div class="res"><b>Cara bermain</b><ol style="margin:6px 0 0;padding-left:20px"><li>Pilih main sendiri atau berdua, lalu tekan Mulai.</li><li>Tekan <b>Lempar Gaco</b>, lalu tekan <b>Lempar!</b> saat penanda di area hijau. Tepat: bonus 5 poin. Kena garis: tanpa bonus. Meleset: gaco berkurang satu.</li><li>Main berdua? Kalian bergantian mengerjakan petak yang sama. Skor tertinggi menang!</li><li>Dengar cerita Bu Rina, lalu selesaikan misi: pilih jawaban atau cocokkan pasangan.</li><li>Benar: skor bertambah dan kartu terbuka. Salah: gaco berkurang, Bu Rina memberi petunjuk, kamu boleh mencoba sekali lagi.</li><li>Kumpulkan 8 kartu, lalu isi refleksi di akhir!</li></ol></div><div class="res"><b>Skor</b><br>Lemparan tepat +5, benar pertama +10, benar kedua +5, sisa gaco +5 per gaco, kartu lengkap +10. Juara Engklek ≥ 115, Pelompat Hebat ≥ 75.</div>`
+ :`<div class="res"><b>Tujuan pembelajaran</b><br>Setelah bermain, siswa kelas V (Fase C) mampu menjelaskan UUD NRI 1945 sebagai aturan dasar negara, membedakan dan memasangkan hak dengan kewajiban, serta menentukan tindakan bertanggung jawab di rumah, sekolah, dan lingkungan.</div><div class="res"><b>Indikator</b><br>Menyebutkan arti norma dan empat jenisnya; membedakan hak dan kewajiban; memasangkan hak dengan kewajiban; mengenal konstitusi dan UUD NRI 1945; memilih tindakan yang bertanggung jawab.</div><div class="res"><b>Alur Pembelajaran Mendalam</b><br>Memahami: petak 1–3. Mengaplikasi: petak 4–6. Merefleksi: petak 7–8 dan refleksi diri. Prinsip: berkesadaran, bermakna, menggembirakan. Profil lulusan: kewargaan, penalaran kritis, kolaborasi (mode berdua), komunikasi.</div><div class="res"><b>Asesmen</b><br>Untuk pembelajaran: petunjuk Bu Rina. Sebagai pembelajaran: refleksi diri. Dari pembelajaran: skor dan kartu. Durasi 30–35 menit. Tips: ajukan pertanyaan pemantik (“Apa aturan di kelas kita?”) dan diskusikan tiap kartu.</div><div class="res"><b>Rujukan</b><br>CP Pendidikan Pancasila Fase C elemen UUD NRI 1945 (Kepka BSKAP); Buku Pendidikan Pancasila SD/MI Kelas V Bab 2; UUD NRI 1945 Pasal 28H ayat (1), 28J ayat (1), 31 ayat (1).</div>`;
+ sheet('Petunjuk','',sw+A,`<button class="sm" id="hearx">🔊</button><button class="big" id="cl">Tutup</button>`);$('tb').onclick=e=>{const b=e.target.closest('button');if(b)help(b.dataset.t)};$('cl').onclick=()=>{if(S.keep){const k=S.keep;S.keep=null;if(S.c&&S.c.t==='aim')aim();else sheet(k[0],k[1],k[2],k[3])}else{$('sh').classList.remove('on');if(!S.P.length)intro()}}}
+$('bh').onclick=()=>help('s');
+$('br').onclick=()=>{if(confirm('Mulai ulang permainan dari awal?'))intro()};
+$('bm').onclick=()=>{S.mus=!S.mus;$('bm').classList.toggle('off',!S.mus);ac();music()};
+$('bv').onclick=()=>{S.voc=!S.voc;$('bv').classList.toggle('off',!S.voc);if(!S.voc)stopv();else say('Narator aktif. Halo, teman-teman!')};
+addEventListener('resize',()=>{if(S.P.length){S.at?stand(S.at):home()}});
+if(window.speechSynthesis)speechSynthesis.getVoices();
+build();home();$('tip').textContent='Tekan Mulai Bermain untuk memulai petualangan!';intro();
+</script>
+</body>
+</html>
